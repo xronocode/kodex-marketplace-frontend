@@ -5,7 +5,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 5173 --strictPort",
-    "build": "vue-tsc --noEmit -p tsconfig.json && vite build",
+    "build": "vite build",
+    "build:check": "vue-tsc --noEmit -p tsconfig.json",
     "preview": "vite preview --host 0.0.0.0 --port 4173 --strictPort",
     "type-check": "vue-tsc --noEmit -p tsconfig.json",
     "lint": "eslint src --ext .ts,.vue --max-warnings=0",
