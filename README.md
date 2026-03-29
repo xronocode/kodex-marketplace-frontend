@@ -152,6 +152,22 @@ const results = await agentSearch('cheap laptops delivered tomorrow')
 
 See `docs/ai/AI_WORKFLOW.md` for the complete AI integration methodology.
 
+## 🤖 AI Stack
+
+This project was built 100% with AI coding assistants under human engineering supervision:
+
+| Category | Tools |
+|----------|-------|
+| **AI IDEs** | [Antigravity](https://antigravity.ai/) / [Codex](https://openai.com/codex) / [Qwen Code](https://github.com/QwenLM/Qwen) |
+| **Code Editors** | VS Code / [Kilo Code](https://kilocode.ai/) / QwenCode |
+| **LLM Models** | [Claude](https://anthropic.com/) / [Gemini](https://deepmind.google/technologies/gemini/) / Qwen |
+
+### Development Methodology
+
+- **GRACE** (Graph-RAG Anchored Code Engineering) — Contract-first development with semantic markup
+- **Human-in-the-Loop** — All AI-generated code reviewed and validated by senior engineer
+- **Verification-Driven** — Every module has contracts, tests, and knowledge graph links
+
 ## 🌐 Environment Variables
 
 | Variable | Description | Default |
@@ -164,8 +180,8 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ## 🔗 Related Repositories
 
-- **[marketplace-backend](https://github.com/xronocode/marketplace-backend)** — FastAPI backend
-- **[marketplace-stack](https://github.com/xronocode/marketplace-stack)** — Docker Compose infrastructure
+- **[kodex-marketplace-backend](https://github.com/xronocode/kodex-marketplace-backend)** — FastAPI backend
+- **[kodex-marketplace-stack](https://github.com/xronocode/kodex-marketplace-stack)** — Docker Compose infrastructure
 
 ## 📖 Documentation
 
