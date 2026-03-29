@@ -1,55 +1,197 @@
 # Kodex Frontend
 
-Vue 3 + TypeScript frontend for Kodex marketplace prototype.
-Architecture: Feature-Sliced Design (FSD).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Vue 3.5](https://img.shields.io/badge/Vue-3.5-green.svg)](https://vuejs.org/)
+[![TypeScript 5.x](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
+[![Vite 6.x](https://img.shields.io/badge/Vite-6.x-purple.svg)](https://vitejs.dev/)
 
-## Stack
+> **AI-Ready Marketplace Platform** — Vue 3 + TypeScript frontend with Agentic Commerce UI
 
-Vue 3.5.x, TypeScript 5.x, Vite 6.x, Vue Router 4.x,
-Pinia 2.x, Axios 1.x.
+Part of the **Kodex** open-source marketplace platform built entirely using AI tools under the **GRACE** methodology.
 
-## Run (via Docker Compose)
+## 🚀 Features
 
-See `../kodex-infra/README.md` for the recommended full-stack start.
+- **Infinite Scroll Catalog** — Seamless browsing with 100+ products
+- **Product Detail Modal** — Sortable offers by price or delivery date
+- **Natural Language Search** — Agent-powered product discovery
+- **Voice Search** — Web Speech API integration with graceful fallback
+- **Admin Panel** — Full CRUD for products and offers
+- **JWT Authentication** — Secure admin access
+- **Feature-Sliced Design** — Scalable, maintainable architecture
 
-## Run standalone (development)
+## 📦 Tech Stack
+
+| Component | Technology |
+|-----------|------------|
+| Framework | Vue 3.5.x |
+| Language | TypeScript 5.x |
+| Build Tool | Vite 6.x |
+| Router | Vue Router 4.x |
+| State | Pinia 2.x |
+| HTTP Client | Axios 1.x |
+| Testing | Vitest 2.x |
+| Linting | ESLint 9.x |
+
+## 🏁 Quick Start
+
+### Option 1: Docker Compose (Recommended)
 
 ```bash
-cd kodex-frontend
+# From the kodex-infra directory
+cd ../kodex-infra
+docker compose up --build
+```
+
+Frontend will be available at http://localhost:5173
+
+### Option 2: Local Development
+
+```bash
+# Install dependencies
 npm install
-cp .env.example .env   # set VITE_API_BASE_URL=http://localhost:8000
-npm run dev            # http://localhost:5173
+
+# Configure environment
+cp .env.example .env
+# Edit VITE_API_BASE_URL=http://localhost:8000
+
+# Start dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-## Run tests
+## 🧪 Testing & Quality
 
 ```bash
-npm exec vitest run    # unit + component tests
-npm run type-check     # TypeScript validation
-npm run lint           # ESLint check
+# Run tests
+npm run test              # vitest run
+npm run test:coverage     # vitest run --coverage
+
+# Type checking
+npm run type-check        # vue-tsc --noEmit
+
+# Linting
+npm run lint              # eslint .
+npm run lint:fix          # eslint . --fix
 ```
 
-## FSD architecture
+## 🏗 Feature-Sliced Design (FSD) Architecture
 
 ```
 src/
-  app/          router, Pinia setup, App.vue
-  pages/        CatalogPage, ProductPage, AdminPage, LoginPage
-  widgets/      ProductCard, ProductModal, ProductsTable
-  features/     useInfiniteScroll, useSortOffers,
-                useAdminAuth, useVoiceSearch
-  entities/     product, offer, seller (types + API calls)
-  shared/       axios client, UI components, utilities
+├── app/                  # Application bootstrap
+│   ├── App.vue           # Root component
+│   ├── router.ts         # Vue Router configuration
+│   └── index.ts          # App entry point
+│
+├── pages/                # Route-level components
+│   ├── catalog/          # Catalog page (infinite scroll)
+│   ├── product/          # Product detail modal
+│   └── admin/            # Admin panel + login
+│
+├── widgets/              # Composite components
+│   ├── product-card/     # ProductCard component
+│   ├── product-modal/    # ProductModal with offers
+│   └── products-table/   # Admin products table
+│
+├── features/             # User actions & interactions
+│   ├── infinite-scroll/  # useInfiniteScroll composable
+│   ├── product-sort/     # useSortOffers composable
+│   ├── voice-search/     # useVoiceSearch composable
+│   └── admin-auth/       # useAdminAuth composable
+│
+├── entities/             # Domain models & API calls
+│   ├── product/          # Product types + API
+│   ├── offer/            # Offer types + API
+│   └── seller/           # Seller types
+│
+└── shared/               # Shared utilities
+    ├── api/              # Axios client + API methods
+    ├── ui/               # Reusable UI components
+    ├── lib/              # Utility functions
+    └── styles/           # Global styles & tokens
 ```
 
-Import rules: each layer may only import from layers below it.
-Cross-slice internal imports are forbidden (ESLint enforced).
+### Import Rules
 
-## Features
+- Each layer may **only import from layers below it**
+- Cross-slice internal imports are **forbidden** (ESLint enforced)
+- Public API only — import through `index.ts` files
 
-- Infinite scroll catalog with 100+ products
-- Product detail modal with offer sorting (price / delivery date)
-- Natural language agent search (POST /v1/agent/search)
-- Voice search via Web Speech API (graceful fallback if unavailable)
-- Admin panel: product CRUD, image upload, offer management
-- Bearer JWT auth for admin routes
+## 🎨 UI Components
+
+### Shared UI (Primitive Components)
+
+| Component | Description |
+|-----------|-------------|
+| `Button` | Primary/secondary/ghost variants |
+| `Badge` | Status badges (success, warning, error) |
+| `Spinner` | Loading indicator with customizable size |
+
+### Widgets (Composite Components)
+
+| Component | Description |
+|-----------|-------------|
+| `ProductCard` | Product image, title, price, delivery date |
+| `ProductModal` | Full product detail with sortable offers |
+| `ProductsTable` | Admin table with CRUD actions |
+
+## 🤖 Agent Integration
+
+The frontend integrates with the backend's Agent layer for natural language search:
+
+```typescript
+import { agentSearch } from '@/shared/api/agentApi'
+
+const results = await agentSearch('cheap laptops delivered tomorrow')
+```
+
+See `docs/ai/AI_WORKFLOW.md` for the complete AI integration methodology.
+
+## 🌐 Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `VITE_API_BASE_URL` | Backend API URL | `http://localhost:8000` |
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+## 🔗 Related Repositories
+
+- **[marketplace-backend](https://github.com/xronocode/marketplace-backend)** — FastAPI backend
+- **[marketplace-stack](https://github.com/xronocode/marketplace-stack)** — Docker Compose infrastructure
+
+## 📖 Documentation
+
+- [AI Workflow](docs/ai/AI_WORKFLOW.md) — Complete AI development log
+- [Prompts](docs/ai/PROMPTS.md) — Prompt library used for AI generation
+- [Session Exports](docs/ai/SESSION_EXPORTS.md) — Cursor session exports
+
+## 🛠 Development Conventions
+
+- **TypeScript strict mode** — Full type safety
+- **ESLint + Prettier** — Consistent code style
+- **Component specs** — `.spec.ts` files for unit tests
+- **Composables** — Reusable logic with `.test.ts` coverage
+- **No internal slice access** — Features cannot import other features' internals
+
+## 🎯 Implemented Use Cases
+
+| UC | Description | Status |
+|----|-------------|--------|
+| UC-001 | Browse catalog with infinite scroll | ✅ |
+| UC-002 | Product detail with sortable offers | ✅ |
+| UC-003 | Admin JWT authentication | ✅ |
+| UC-004 | Admin catalog CRUD | ✅ |
+| UC-005 | Seed script integration | ✅ |
+| UC-006 | Agent search with NL parsing | ✅ |
+
+---
+
+**Built with ❤️ using AI + Human Engineering Supervision**
