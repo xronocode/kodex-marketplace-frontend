@@ -1,0 +1,38 @@
+<RequirementsAnalysis VERSION="0.1.0">
+  <UseCases>
+    <UC-001>
+      <Actor>Visitor</Actor>
+      <Action>Browses product catalog with infinite scroll</Action>
+      <Goal>Discover products without pagination friction</Goal>
+      <AcceptanceCriteria>Products load automatically on scroll; grid respects card width; empty state is legible</AcceptanceCriteria>
+    </UC-001>
+
+    <UC-002>
+      <Actor>Visitor</Actor>
+      <Action>Searches products by text query via chat-style input</Action>
+      <Goal>Quickly find relevant products using natural language</Goal>
+      <AcceptanceCriteria>Search bar is anchored at page bottom like a chat input; results replace the catalog grid; loading and error states are visible</AcceptanceCriteria>
+    </UC-002>
+
+    <UC-003>
+      <Actor>Visitor</Actor>
+      <Action>Searches products by voice</Action>
+      <Goal>Find products hands-free via speech recognition</Goal>
+      <AcceptanceCriteria>Voice button toggles recording; transcript appears in search bar; results sync with grid</AcceptanceCriteria>
+    </UC-004>
+
+    <UC-004>
+      <Actor>Visitor</Actor>
+      <Action>Views product details in modal</Action>
+      <Goal>Inspect a product without leaving the catalog page</Goal>
+      <AcceptanceCriteria>Clicking a card opens modal; modal closes on backdrop or close button; selection resets on close</AcceptanceCriteria>
+    </UC-004>
+
+    <UC-005>
+      <Actor>Visitor</Actor>
+      <Action>Experiences consistent layout regardless of result count</Action>
+      <Goal>UI remains proportional and visually stable when results are empty, few, or many</Goal>
+      <AcceptanceCriteria>Search bar and action buttons never stretch horizontally; grid cards maintain max-width; empty state has proper padding</AcceptanceCriteria>
+    </UC-005>
+  </UseCases>
+</RequirementsAnalysis>

@@ -1,0 +1,135 @@
+<DevelopmentPlan VERSION="0.1.0">
+  <Modules>
+    <M-TOKENS NAME="DesignTokens" TYPE="UTILITY" LAYER="0" ORDER="1">
+      <contract>
+        <purpose>Define CSS custom properties for consistent visual language</purpose>
+        <inputs>none</inputs>
+        <outputs>CSS custom properties on :root</outputs>
+        <errors>none</errors>
+      </contract>
+      <interface>
+        <export-tokens PURPOSE="Global design tokens" />
+      </interface>
+      <depends>none</depends>
+    </M-TOKENS>
+
+    <M-PRODUCT NAME="Product" TYPE="DATA_LAYER" LAYER="0" ORDER="2">
+      <contract>
+        <purpose>Product domain model and API types</purpose>
+        <inputs>none</inputs>
+        <outputs>ProductListItem type, API functions</outputs>
+        <errors>Network errors from API calls</errors>
+      </contract>
+      <depends>none</depends>
+    </M-PRODUCT>
+
+    <M-INFINITE-SCROLL NAME="InfiniteScroll" TYPE="CORE_LOGIC" LAYER="1" ORDER="1">
+      <contract>
+        <purpose>Paginated loading via intersection observer</purpose>
+        <inputs>sentinel element ref</inputs>
+        <outputs>items, isLoading, hasMore, error, reset()</outputs>
+        <errors>API fetch errors</errors>
+      </contract>
+      <interface>
+        <export-useInfiniteScroll PURPOSE="Composable for infinite scroll state" />
+      </interface>
+      <depends>M-PRODUCT</depends>
+    </M-INFINITE-SCROLL>
+
+    <M-VOICE-SEARCH NAME="VoiceSearch" TYPE="INTEGRATION" LAYER="1" ORDER="2">
+      <contract>
+        <purpose>Browser SpeechRecognition adapter with search API</purpose>
+        <inputs>search query string</inputs>
+        <outputs>isListening, transcript, results, error, start(), stop(), search()</outputs>
+        <errors>Unsupported browser, microphone denied, API errors</errors>
+      </contract>
+      <interface>
+        <export-useVoiceSearch PURPOSE="Composable for voice search state" />
+        <export-VoiceSearchButton PURPOSE="Support-aware trigger button" />
+      </interface>
+      <depends>M-PRODUCT</depends>
+    </M-VOICE-SEARCH>
+
+    <M-PRODUCT-CARD NAME="ProductCard" TYPE="UI_COMPONENT" LAYER="2" ORDER="1">
+      <contract>
+        <purpose>Card widget for a single product in catalog grid</purpose>
+        <inputs>ProductListItem prop</inputs>
+        <outputs>select emitted event</outputs>
+        <errors>none</errors>
+      </contract>
+      <depends>M-PRODUCT</depends>
+    </M-PRODUCT-CARD>
+
+    <M-PRODUCT-MODAL NAME="ProductModal" TYPE="UI_COMPONENT" LAYER="2" ORDER="2">
+      <contract>
+        <purpose>Modal overlay for detailed product view</purpose>
+        <inputs>productId prop</inputs>
+        <outputs>close emitted event</outputs>
+        <errors>Product not found</errors>
+      </contract>
+      <depends>M-PRODUCT</depends>
+    </M-PRODUCT-MODAL>
+
+    <M-CATALOG-PAGE NAME="CatalogPage" TYPE="ENTRY_POINT" LAYER="3" ORDER="1">
+      <contract>
+        <purpose>Public catalog page with chat-style search input, voice search, and infinite scroll grid</purpose>
+        <inputs>Route params, user interactions</inputs>
+        <outputs>Rendered catalog UI with search, grid, and modal</outputs>
+        <errors>Search errors, voice errors, API errors</errors>
+      </contract>
+      <depends>M-INFINITE-SCROLL, M-VOICE-SEARCH, M-PRODUCT-CARD, M-PRODUCT-MODAL, M-PRODUCT, M-TOKENS</depends>
+    </M-CATALOG-PAGE>
+  </Modules>
+
+  <DataFlow>
+    <DF-TEXT-SEARCH NAME="Text Search Flow" TRIGGER="User submits search form">
+      <step-1>User types query into chat-style search bar and presses Enter or clicks submit</step-1>
+      <step-2>CatalogPage resets grid and calls voiceSearch.search(query)</step-2>
+      <step-3>Search API returns ProductListItem[]</step-3>
+      <step-4>CatalogPage syncs results into infinite-scroll state via reset()</step-4>
+      <step-5>Grid re-renders with search results; search bar stays anchored at bottom</step-5>
+    </DF-TEXT-SEARCH>
+
+    <DF-VOICE-SEARCH NAME="Voice Search Flow" TRIGGER="User clicks voice button">
+      <step-1>User clicks voice button; browser starts SpeechRecognition</step-1>
+      <step-2>Transcript updates are synced to search bar input</step-2>
+      <step-3>On recognition end, results are synced into infinite-scroll state</step-3>
+      <step-4>Grid re-renders with voice search results</step-4>
+    </DF-VOICE-SEARCH>
+
+    <DF-INFINITE-SCROLL NAME="Infinite Scroll Flow" TRIGGER="User scrolls near sentinel">
+      <step-1>IntersectionObserver detects sentinel element visibility</step-1>
+      <step-2>Composable fetches next page from API</step-2>
+      <step-3>New ProductListItem[] appended to items</step-3>
+      <step-4>Grid renders additional cards</step-4>
+    </DF-INFINITE-SCROLL>
+
+    <DF-PRODUCT-DETAIL NAME="Product Detail Flow" TRIGGER="User clicks product card">
+      <step-1>User clicks ProductCard</step-1>
+      <step-2>CatalogPage sets selectedProductId</step-2>
+      <step-3>ProductModal opens with product details</step-3>
+      <step-4>User closes modal; selectedProductId resets to null</step-4>
+    </DF-PRODUCT-DETAIL>
+  </DataFlow>
+
+  <ImplementationOrder>
+    <Phase-1 name="Foundation" status="done">
+      <step-1 module="M-TOKENS">Design tokens established</step-1>
+      <step-2 module="M-PRODUCT">Product entity types defined</step-2>
+    </Phase-1>
+
+    <Phase-2 name="Core Features" status="done">
+      <step-1 module="M-INFINITE-SCROLL">Infinite scroll composable</step-1>
+      <step-2 module="M-VOICE-SEARCH">Voice search integration</step-2>
+    </Phase-2>
+
+    <Phase-3 name="UI Widgets" status="done">
+      <step-1 module="M-PRODUCT-CARD">Product card widget</step-1>
+      <step-2 module="M-PRODUCT-MODAL">Product modal widget</step-2>
+    </Phase-3>
+
+    <Phase-4 name="Catalog Page Chat-Style Redesign" status="pending">
+      <step-1 module="M-CATALOG-PAGE">Redesign catalog page with chat-style bottom-anchored search bar, proportional grid, and stable empty state</step-1>
+    </Phase-4>
+  </ImplementationOrder>
+</DevelopmentPlan>

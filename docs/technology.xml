@@ -1,0 +1,25 @@
+<TechnologyStack VERSION="0.1.0">
+  <Runtime>Browser (ES2022+)</Runtime>
+  <Language>TypeScript 5.9</Language>
+
+  <Framework>Vue 3.5 (Composition API + script setup)</Framework>
+
+  <Dependencies>
+    <dep name="vue" version="^3.5.31" purpose="Reactive UI framework" />
+    <dep name="vue-router" version="^4.6.4" purpose="Client-side routing" />
+    <dep name="pinia" version="^2.3.1" purpose="State management" />
+    <dep name="axios" version="^1.14.0" purpose="HTTP client for backend API" />
+  </Dependencies>
+
+  <VersionConstraints>
+    <constraint lib="vue" min="3.5.0" max="3.x" reason="Using script setup and latest Composition API features" />
+    <constraint lib="typescript" min="5.5.0" max="5.x" reason="Using discriminated unions and strict mode" />
+  </VersionConstraints>
+
+  <Tooling>
+    <tool name="bundler" value="vite" version="^6.4.1" />
+    <tool name="test-runner" value="vitest" version="^4.1.2" />
+    <tool name="linter" value="eslint" version="^9.39.4" />
+    <tool name="type-checker" value="vue-tsc" version="^3.2.6" />
+  </Tooling>
+</TechnologyStack>

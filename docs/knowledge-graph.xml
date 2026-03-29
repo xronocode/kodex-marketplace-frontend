@@ -1,0 +1,124 @@
+<KnowledgeGraph>
+  <Project NAME="kodex-frontend" VERSION="0.1.0">
+    <keywords>catalog, product search, voice search, infinite scroll, Vue 3, TypeScript, Pinia</keywords>
+    <annotation>Public-facing product catalog SPA with text/voice search, infinite scroll grid, and admin panel.</annotation>
+
+    <!-- === Entities === -->
+
+    <M-PRODUCT NAME="Product" TYPE="DATA_LAYER">
+      <purpose>Product domain model and API types</purpose>
+      <path>src/entities/product</path>
+      <depends>none</depends>
+      <annotations>
+        <type-ProductListItem PURPOSE="Shape of a product card in listing" />
+      </annotations>
+    </M-PRODUCT>
+
+    <M-SELLER NAME="Seller" TYPE="DATA_LAYER">
+      <purpose>Seller domain model and API types</purpose>
+      <path>src/entities/seller</path>
+      <depends>none</depends>
+    </M-SELLER>
+
+    <M-OFFER NAME="Offer" TYPE="DATA_LAYER">
+      <purpose>Offer domain model and API types</purpose>
+      <path>src/entities/offer</path>
+      <depends>none</depends>
+    </M-OFFER>
+
+    <!-- === Features === -->
+
+    <M-INFINITE-SCROLL NAME="InfiniteScroll" TYPE="CORE_LOGIC">
+      <purpose>Composable that manages paginated loading via intersection observer</purpose>
+      <path>src/features/infinite-scroll</path>
+      <depends>M-PRODUCT</depends>
+      <annotations>
+        <fn-useInfiniteScroll PURPOSE="Returns reactive items, loading state, and reset capability" />
+      </annotations>
+    </M-INFINITE-SCROLL>
+
+    <M-VOICE-SEARCH NAME="VoiceSearch" TYPE="INTEGRATION">
+      <purpose>Browser SpeechRecognition adapter with search API integration</purpose>
+      <path>src/features/voice-search</path>
+      <depends>M-PRODUCT</depends>
+      <annotations>
+        <fn-useVoiceSearch PURPOSE="Manages listening state, transcript, results, and error" />
+        <fn-VoiceSearchButton PURPOSE="Support-aware trigger button that hides when speech unavailable" />
+      </annotations>
+    </M-VOICE-SEARCH>
+
+    <M-ADMIN-AUTH NAME="AdminAuth" TYPE="CORE_LOGIC">
+      <purpose>Admin authentication composable</purpose>
+      <path>src/features/admin-auth</path>
+      <depends>none</depends>
+    </M-ADMIN-AUTH>
+
+    <M-PRODUCT-SORT NAME="ProductSort" TYPE="CORE_LOGIC">
+      <purpose>Sorting logic for product listings</purpose>
+      <path>src/features/product-sort</path>
+      <depends>M-PRODUCT</depends>
+    </M-PRODUCT-SORT>
+
+    <!-- === Widgets === -->
+
+    <M-PRODUCT-CARD NAME="ProductCard" TYPE="UI_COMPONENT">
+      <purpose>Card widget for a single product in the catalog grid</purpose>
+      <path>src/widgets/product-card</path>
+      <depends>M-PRODUCT</depends>
+    </M-PRODUCT-CARD>
+
+    <M-PRODUCT-MODAL NAME="ProductModal" TYPE="UI_COMPONENT">
+      <purpose>Modal overlay for detailed product view</purpose>
+      <path>src/widgets/product-modal</path>
+      <depends>M-PRODUCT</depends>
+    </M-PRODUCT-MODAL>
+
+    <M-PRODUCTS-TABLE NAME="ProductsTable" TYPE="UI_COMPONENT">
+      <purpose>Admin table widget for managing products</purpose>
+      <path>src/widgets/products-table</path>
+      <depends>M-PRODUCT</depends>
+    </M-PRODUCTS-TABLE>
+
+    <!-- === Pages === -->
+
+    <M-CATALOG-PAGE NAME="CatalogPage" TYPE="ENTRY_POINT">
+      <purpose>Public catalog page with search, voice input, and infinite scroll product grid</purpose>
+      <path>src/pages/catalog/CatalogPage.vue</path>
+      <depends>M-INFINITE-SCROLL, M-VOICE-SEARCH, M-PRODUCT-CARD, M-PRODUCT-MODAL, M-PRODUCT</depends>
+      <annotations>
+        <fn-syncAgentSearchResults PURPOSE="Replace infinite-scroll grid with agent search results" />
+      </annotations>
+    </M-CATALOG-PAGE>
+
+    <M-ADMIN-PAGE NAME="AdminPage" TYPE="ENTRY_POINT">
+      <purpose>Admin panel for product management</purpose>
+      <path>src/pages/admin/AdminPage.vue</path>
+      <depends>M-ADMIN-AUTH, M-PRODUCTS-TABLE</depends>
+    </M-ADMIN-PAGE>
+
+    <!-- === Shared === -->
+
+    <M-TOKENS NAME="DesignTokens" TYPE="UTILITY">
+      <purpose>CSS custom properties for the design system</purpose>
+      <path>src/shared/styles/tokens.css</path>
+      <depends>none</depends>
+    </M-TOKENS>
+
+    <M-APP-SHELL NAME="AppShell" TYPE="ENTRY_POINT">
+      <purpose>Root Vue app, router, and entry point</purpose>
+      <path>src/app</path>
+      <depends>M-CATALOG-PAGE, M-ADMIN-PAGE</depends>
+    </M-APP-SHELL>
+
+    <!-- === CrossLinks === -->
+    <CrossLink from="M-CATALOG-PAGE" to="M-INFINITE-SCROLL" relation="uses composable for paginated loading" />
+    <CrossLink from="M-CATALOG-PAGE" to="M-VOICE-SEARCH" relation="orchestrates text and voice search" />
+    <CrossLink from="M-CATALOG-PAGE" to="M-PRODUCT-CARD" relation="renders cards in grid" />
+    <CrossLink from="M-CATALOG-PAGE" to="M-PRODUCT-MODAL" relation="opens detail modal on card select" />
+    <CrossLink from="M-CATALOG-PAGE" to="M-TOKENS" relation="consumes design tokens" />
+    <CrossLink from="M-VOICE-SEARCH" to="M-PRODUCT" relation="returns ProductListItem results" />
+    <CrossLink from="M-INFINITE-SCROLL" to="M-PRODUCT" relation="paginates ProductListItem" />
+    <CrossLink from="M-APP-SHELL" to="M-CATALOG-PAGE" relation="routes to catalog" />
+    <CrossLink from="M-APP-SHELL" to="M-ADMIN-PAGE" relation="routes to admin" />
+  </Project>
+</KnowledgeGraph>

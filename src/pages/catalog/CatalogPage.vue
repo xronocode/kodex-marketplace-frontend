@@ -14,7 +14,7 @@ SIDE_EFFECTS: DOM updates, local reactive state changes, and any router/API call
 START_BLOCK_MODULE
 Public catalog page for product discovery and agent search orchestration.
 END_BLOCK_MODULE
-CHANGE_SUMMARY: Adds the public catalog page with infinite scrolling, voice and text agent search, Russian intent hints, and modal-backed product selection.
+CHANGE_SUMMARY: Adds the public catalog page with infinite scrolling, voice and text agent search, Russian intent hints, and modal-backed product selection. Fix: replace auto-fit with auto-fill to prevent card stretching when few products; remove min-height 100vh to avoid empty-space stretching; fix missing --spacing-16 token in empty state.
 -->
 <script setup lang="ts">
 import { nextTick, ref, watch } from 'vue';
@@ -212,7 +212,6 @@ function handleModalClose(): void {
   background:
     radial-gradient(circle at top left, rgba(148, 163, 184, 0.14), transparent 28%),
     linear-gradient(180deg, var(--color-bg-secondary) 0%, #eef2ff 100%);
-  min-height: 100vh;
   color: var(--color-text-primary);
 }
 
@@ -345,7 +344,7 @@ function handleModalClose(): void {
 }
 
 .catalog-page__empty {
-  padding: var(--spacing-16);
+  padding: var(--spacing-12);
   text-align: center;
   background: var(--color-bg-base);
   border-radius: var(--radius-lg);
@@ -361,7 +360,7 @@ function handleModalClose(): void {
 
 .catalog-page__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--spacing-4);
 }
 
