@@ -27,7 +27,7 @@ import axios, {
   type InternalAxiosRequestConfig,
 } from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
+const API_BASE_URL = 'https://kodex-marketplace-backend-production.up.railway.app';
 const ADMIN_TOKEN_KEY = 'kodex_admin_token';
 const ADMIN_LOGIN_PATH = '/admin/login';
 const REQUEST_TIMEOUT_MS = 10_000;
