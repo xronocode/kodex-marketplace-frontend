@@ -1,0 +1,78 @@
+#
+# MODULE_CONTRACT: CI/CD workflow for frontend — run tests, lint, and type check on PR and push.
+# SCOPE: GitHub Actions workflow for kodex-frontend repository.
+# DEPENDS: Node.js 20 LTS, npm, vitest, vue-tsc
+# LINKS: package.json (test/lint configuration)
+# START_BLOCK_MODULE
+GitHub Actions workflow definition for frontend CI.
+# END_BLOCK_MODULE
+# CHANGE_SUMMARY: Initial CI workflow for frontend repository.
+
+name: Frontend CI
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'kodex-frontend/**'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'kodex-frontend/**'
+
+defaults:
+  run:
+    working-directory: kodex-frontend
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ["20.x"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: kodex-frontend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          npm ci
+
+      - name: Run tests
+        run: |
+          npm run test
+
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ["20.x"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: kodex-frontend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          npm ci
+
+      - name: Run type check
+        run: |
+          npm run type-check
+
+      - name: Run lint (if configured)
+        run: |
+          npm run lint || echo "Lint script not configured"

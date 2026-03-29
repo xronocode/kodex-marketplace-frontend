@@ -1,0 +1,274 @@
+/*
+MODULE_CONTRACT: Define base component styles for buttons, inputs, and common UI elements.
+SCOPE: Button variants, input styles, card containers, and utility classes.
+DEPENDS: ./tokens.css
+LINKS: [DesignSystem][components][BLOCK_DEFINE_COMPONENTS]
+
+MODULE_MAP:
+- .btn - Button component classes
+- .input - Input field classes
+- .card - Card container classes
+CONTRACT:
+PURPOSE: Provide reusable component styles across the application.
+INPUTS: None.
+OUTPUTS: CSS classes for common UI components.
+SIDE_EFFECTS: None.
+START_BLOCK_DEFINE_COMPONENTS
+Base component styles built on design tokens.
+END_BLOCK_DEFINE_COMPONENTS
+CHANGE_SUMMARY: Initial component styles - buttons, inputs, cards with consistent theming.
+*/
+
+@import './tokens.css';
+
+/* --- START_BLOCK_BUTTONS --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-5);
+  border: var(--border-width-thin) solid transparent;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.btn--primary:active:not(:disabled) {
+  background: var(--color-primary-active);
+  border-color: var(--color-primary-active);
+}
+
+.btn--secondary {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-primary);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-border-secondary);
+}
+
+.btn--danger {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: var(--color-error);
+  color: #ffffff;
+}
+
+.btn--sm {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-xs);
+}
+
+.btn--lg {
+  padding: var(--spacing-4) var(--spacing-6);
+  font-size: var(--font-size-base);
+}
+/* --- END_BLOCK_BUTTONS --- */
+
+/* --- START_BLOCK_INPUTS --- */
+.input {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  border: var(--border-width-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input:disabled {
+  background: var(--color-bg-tertiary);
+  cursor: not-allowed;
+}
+
+.input--error {
+  border-color: var(--color-error);
+}
+
+.input--error:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+/* --- END_BLOCK_INPUTS --- */
+
+/* --- START_BLOCK_CARDS --- */
+.card {
+  background: var(--color-bg-primary);
+  border: var(--border-width-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.card__header {
+  padding: var(--spacing-5) var(--spacing-6);
+  border-bottom: var(--border-width-thin) solid var(--color-border-primary);
+  background: var(--color-bg-secondary);
+}
+
+.card__body {
+  padding: var(--spacing-6);
+}
+
+.card__footer {
+  padding: var(--spacing-4) var(--spacing-6);
+  border-top: var(--border-width-thin) solid var(--color-border-primary);
+  background: var(--color-bg-secondary);
+}
+/* --- END_BLOCK_CARDS --- */
+
+/* --- START_BLOCK_BADGES --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+}
+
+.badge--success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.badge--error {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+.badge--warning {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.badge--neutral {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+}
+/* --- END_BLOCK_BADGES --- */
+
+/* --- START_BLOCK_TABLES --- */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+}
+
+.table th {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-secondary);
+  border-bottom: var(--border-width-thin) solid var(--color-border-primary);
+}
+
+.table td {
+  padding: var(--spacing-4);
+  color: var(--color-text-primary);
+  border-bottom: var(--border-width-thin) solid var(--color-border-primary);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table--compact th,
+.table--compact td {
+  padding: var(--spacing-2) var(--spacing-3);
+}
+/* --- END_BLOCK_TABLES --- */
+
+/* --- START_BLOCK_MODAL --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  padding: var(--spacing-4);
+}
+
+.modal {
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  max-width: 32rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.modal__header {
+  padding: var(--spacing-5) var(--spacing-6);
+  border-bottom: var(--border-width-thin) solid var(--color-border-primary);
+}
+
+.modal__title {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.modal__body {
+  padding: var(--spacing-6);
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4) var(--spacing-6);
+  border-top: var(--border-width-thin) solid var(--color-border-primary);
+}
+/* --- END_BLOCK_MODAL --- */

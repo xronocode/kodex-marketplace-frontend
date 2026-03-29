@@ -1,0 +1,62 @@
+{
+  "name": "kodex-frontend",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173 --strictPort",
+    "build": "vue-tsc --noEmit -p tsconfig.json && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173 --strictPort",
+    "type-check": "vue-tsc --noEmit -p tsconfig.json",
+    "lint": "eslint src --ext .ts,.vue --max-warnings=0",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "axios": "^1.14.0",
+    "pinia": "^2.3.1",
+    "vue": "^3.5.31",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "@types/node": "^22.0.0",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.9.1",
+    "eslint": "^9.39.4",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-vue": "^10.8.0",
+    "jsdom": "^29.0.1",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.1",
+    "vitest": "^4.1.2",
+    "vue-eslint-parser": "^10.4.0",
+    "vue-tsc": "^3.2.6"
+  },
+  "MODULE_CONTRACT": {
+    "purpose": "Define the frontend runtime contract, build tooling, lint rules, Docker image, env defaults, and HTML bootstrap.",
+    "scope": [
+      "package manager",
+      "Vite dev server",
+      "TypeScript strictness",
+      "ESLint verification",
+      "Docker dev startup",
+      "env defaults",
+      "HTML bootstrap"
+    ],
+    "depends": [
+      "M-INFRA-COMPOSE"
+    ],
+    "marker": "[FrontendTooling][setup][BLOCK_DEFINE_TOOLCHAIN]"
+  },
+  "CHANGE_SUMMARY": {
+    "status": "initial tooling bootstrap",
+    "notes": [
+      "Adds Vue 3.5, TypeScript 5, Vite 6, router, Pinia, and Axios.",
+      "Adds vue-tsc, ESLint, Vue/TypeScript plugins, Vitest, Vue Test Utils, jsdom, and Vue tsconfig support.",
+      "Defines scripts for dev, type-check, lint, preview, build, and test."
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+/*
+MODULE_CONTRACT: Define the core design tokens for the Kodex frontend design system.
+SCOPE: Colors, typography, spacing, borders, and shadows as CSS custom properties.
+DEPENDS: None - this is the foundation layer.
+LINKS: [DesignSystem][tokens][BLOCK_DEFINE_TOKENS]
+
+MODULE_MAP:
+- :root - CSS custom properties for design tokens
+CONTRACT:
+PURPOSE: Provide consistent visual language across all components.
+INPUTS: None.
+OUTPUTS: CSS custom properties available globally.
+SIDE_EFFECTS: None.
+START_BLOCK_DEFINE_TOKENS
+Core design tokens for colors, type, spacing, and effects.
+END_BLOCK_DEFINE_TOKENS
+CHANGE_SUMMARY: Initial design system tokens - modern, clean, restrained aesthetic.
+*/
+
+:root {
+  /* --- START_BLOCK_COLORS --- */
+  /* Primary palette - slate/neutral with subtle blue accent */
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-active: #1d4ed8;
+  
+  /* Neutral grays */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94a3b8;
+  
+  /* Backgrounds */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-tertiary: #f1f5f9;
+  
+  /* Borders */
+  --color-border-primary: #e2e8f0;
+  --color-border-secondary: #cbd5e1;
+  --color-border-focus: #3b82f6;
+  
+  /* Semantic colors */
+  --color-success: #16a34a;
+  --color-success-bg: #f0fdf4;
+  --color-error: #dc2626;
+  --color-error-bg: #fef2f2;
+  --color-warning: #d97706;
+  --color-warning-bg: #fffbeb;
+  /* --- END_BLOCK_COLORS --- */
+  
+  /* --- START_BLOCK_TYPOGRAPHY --- */
+  /* Font families */
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* Font sizes - based on 1.25 scale */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  /* --- END_BLOCK_TYPOGRAPHY --- */
+  
+  /* --- START_BLOCK_SPACING --- */
+  /* Spacing scale - based on 4px grid */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;   /* 4px */
+  --spacing-2: 0.5rem;    /* 8px */
+  --spacing-3: 0.75rem;   /* 12px */
+  --spacing-4: 1rem;      /* 16px */
+  --spacing-5: 1.25rem;   /* 20px */
+  --spacing-6: 1.5rem;    /* 24px */
+  --spacing-8: 2rem;      /* 32px */
+  --spacing-10: 2.5rem;   /* 40px */
+  --spacing-12: 3rem;     /* 48px */
+  /* --- END_BLOCK_SPACING --- */
+  
+  /* --- START_BLOCK_BORDERS --- */
+  /* Border radius */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.375rem;  /* 6px */
+  --radius-lg: 0.5rem;    /* 8px */
+  --radius-xl: 0.75rem;   /* 12px */
+  --radius-2xl: 1rem;     /* 16px */
+  --radius-full: 9999px;
+  
+  /* Border widths */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 3px;
+  /* --- END_BLOCK_BORDERS --- */
+  
+  /* --- START_BLOCK_SHADOWS --- */
+  /* Shadows - subtle elevation */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  /* --- END_BLOCK_SHADOWS --- */
+  
+  /* --- START_BLOCK_TRANSITIONS --- */
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+  /* --- END_BLOCK_TRANSITIONS --- */
+}

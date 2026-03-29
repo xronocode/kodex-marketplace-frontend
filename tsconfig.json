@@ -1,0 +1,60 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2022",
+    "types": [
+      "node",
+      "vite/client"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.vue",
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ],
+  "MODULE_CONTRACT": {
+    "purpose": "Define the strict frontend TypeScript runtime contract and alias map.",
+    "scope": [
+      "compiler options",
+      "source includes",
+      "alias paths",
+      "strict type-checking"
+    ],
+    "depends": [
+      "package.json"
+    ],
+    "marker": "[FrontendTooling][setup][BLOCK_DEFINE_TOOLCHAIN]"
+  },
+  "CHANGE_SUMMARY": {
+    "status": "initial tooling bootstrap",
+    "notes": [
+      "Extends Vue DOM TypeScript defaults.",
+      "Pins @ alias to src for app code and toolchain files.",
+      "Enables strict no-emit type-checking for frontend sources and Vite config."
+    ]
+  }
+}
